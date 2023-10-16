@@ -1,6 +1,6 @@
 //
 //  BlankStyle.swift
-//  
+//
 //  SlidingRuler
 //
 //  MIT License
@@ -26,14 +26,16 @@
 //  SOFTWARE.
 //
 
-
 import SwiftUI
 
 public struct BlankSlidingRulerStyle: SlidingRulerStyle {
+    var cursorColor: Color
+    public init(cursorColor: Color = .red) {
+        self.cursorColor = cursorColor
+    }
+
     public let cursorAlignment: VerticalAlignment = .top
 
-    public init() {}
-    
     public func makeCellBody(configuration: SlidingRulerStyleConfiguation) -> some FractionableView {
         BlankCellBody(mark: configuration.mark,
                       bounds: configuration.bounds,
@@ -42,6 +44,6 @@ public struct BlankSlidingRulerStyle: SlidingRulerStyle {
     }
 
     public func makeCursorBody() -> some View {
-        NativeCursorBody()
+        NativeCursorBody(color: cursorColor)
     }
 }
