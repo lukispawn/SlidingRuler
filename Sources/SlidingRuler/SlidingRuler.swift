@@ -542,3 +542,19 @@ extension SlidingRuler {
     }
 }
 
+
+struct SlidingRuler_Previews: PreviewProvider {
+    
+    static let value: Float = 20
+    
+    static var previews: some View {
+        SlidingRuler(
+            value: .constant(value),
+            in: -100...100,
+            step: 50,
+            snap: .fraction,
+            tick: .fraction
+        )
+        .slidingRulerStyle(BlankSlidingRulerStyle(cursorColor: .green))
+    }
+}

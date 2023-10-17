@@ -26,7 +26,6 @@
 //  SOFTWARE.
 //
 
-
 import SwiftUI
 
 struct Ruler: View, Equatable {
@@ -41,7 +40,14 @@ struct Ruler: View, Equatable {
     var body: some View {
         HStack(spacing: 0) {
             ForEach(self.cells) { cell in
-                self.style.makeCellBody(configuration: self.configuration(forCell: cell))
+                VStack(spacing: 2) {
+                    Circle()
+                        .fill(Color.primary)
+                        .frame(width: 8, height: 8)
+                        .opacity(cell.mark == 0 ? 1 : 0)
+                        
+                    self.style.makeCellBody(configuration: self.configuration(forCell: cell))
+                }
             }
         }
         .animation(nil)
@@ -53,8 +59,8 @@ struct Ruler: View, Equatable {
     
     static func ==(lhs: Self, rhs: Self) -> Bool {
         lhs.step == rhs.step &&
-        lhs.cells.count == rhs.cells.count &&
-        (lhs.markOffset == rhs.markOffset)
+            lhs.cells.count == rhs.cells.count &&
+            (lhs.markOffset == rhs.markOffset)
         // causing "Accessing Environment's value outside of being installed on a View" errors when running so commenting out
         // (!StaticSlidingRulerStyleEnvironment.hasMarks || lhs.markOffset == rhs.markOffset)
     }
@@ -63,6 +69,6 @@ struct Ruler: View, Equatable {
 struct Ruler_Previews: PreviewProvider {
     static var previews: some View {
         Ruler(cells: [.init(CGFloat(0))],
-              step: 1.0, markOffset: 0, bounds: -1...1, formatter: nil)
+              step: 1.0, markOffset: 0, bounds: -1 ... 1, formatter: nil)
     }
 }
